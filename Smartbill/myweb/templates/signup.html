@@ -1,0 +1,331 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account – SmartBill</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'signup.css' %}">
+  <style>
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Top nav -->
+  <div class="top-nav">
+    <a href="{% url 'home' %}" class="brand">
+      <span class="brand-dot"><i class="bi bi-receipt-cutoff"></i></span>
+      SmartBill
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <span style="color:rgba(255,255,255,.4);font-size:.85rem">Already have an account?</span>
+      <a href="{% url 'signin' %}" class="login-link">Sign in →</a>
+    </div>
+  </div>
+
+  <div class="page-body">
+
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="left-panel-content">
+        <h2>Join 2,400+<br />businesses today</h2>
+        <p>Everything you need to manage billing, GST, customers, and growth — in one clean app.</p>
+
+        <ul class="benefit-list">
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              <span class="title">Free to start</span>
+              <span class="sub">No credit card. Up to 20 invoices free.</span>
+            </div>
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              <span class="title">GST-compliant invoices</span>
+              <span class="sub">Auto-calculated taxes on every bill.</span>
+            </div>
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              <span class="title">Ready in 2 minutes</span>
+              <span class="sub">Fill your shop details and start billing.</span>
+            </div>
+          </li>
+          <li>
+            <i class="bi bi-check-circle-fill"></i>
+            <div>
+              <span class="title">Secure & private</span>
+              <span class="sub">Your data is encrypted and never shared.</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="left-testi">
+          <div class="stars">★★★★★</div>
+          <div class="quote">"Setup took 5 minutes. Now I generate 30+ invoices a day without breaking a sweat."</div>
+          <div class="author">— Kiran Rao, Hardware Shop, Hyderabad</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel: form -->
+    <div class="right-panel">
+      <div class="form-card">
+
+        <h3>Create your account</h3>
+        <p class="subtitle">Free forever on the Starter plan.</p>
+
+        <!-- Step indicator -->
+        <div class="steps-indicator">
+          <div class="step-dot active" id="s1">
+            <div class="step-num"><i class="bi bi-person"></i></div>
+            <div class="step-label">Your Info</div>
+          </div>
+          <div class="step-dot" id="s2">
+            <div class="step-num">2</div>
+            <div class="step-label">Shop Details</div>
+          </div>
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+
+          {{ message }}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        <!-- ── STEP 1: Personal info ── -->
+        <form id="form-step1" method="post">
+          {% csrf_token %}
+          <div id="step1">
+
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label class="form-label">First Name *</label>
+                <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Hil" required />
+                <div class="invalid-feedback">Required</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Last Name *</label>
+                <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Patel" required />
+                <div class="invalid-feedback">Required</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username" required />
+              <div class="invalid-feedback">Enter a valid email</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" class="form-control" id="phone" name="phone_number" placeholder="10-digit mobile number"
+                required />
+              <div class="invalid-feedback">Enter a valid phone number</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password *</label>
+              <div class="pw-wrap">
+                <input type="password" class="form-control" name="password" id="password"
+                  placeholder="Create a strong password" oninput="checkStrength()" required />
+                <button type="button" class="pw-toggle" onclick="togglePw('password','eye1')">
+                  <i class="bi bi-eye" id="eye1"></i>
+                </button>
+              </div>
+              <!-- Password strength bar -->
+              <div class="strength-bar mt-2">
+                <div class="strength-fill" id="strength-fill"></div>
+              </div>
+              <div class="strength-text text-muted" id="strength-text">Enter a password</div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Confirm Password *</label>
+              <div class="pw-wrap">
+                <input type="password" class="form-control" id="confirmPw" placeholder="Re-enter password" required />
+                <button type="button" class="pw-toggle" onclick="togglePw('confirmPw','eye2')">
+                  <i class="bi bi-eye" id="eye2"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-signup" onclick="nextStep()">
+              Continue to Shop Details <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+
+            <div class="terms-text mt-3">
+              By continuing, you agree to our
+              <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            </div>
+            <div class="text-center mt-3" style="font-size:.82rem">
+              <span class="text-muted">Already have an account?</span>
+              <a href="{% url 'signin' %}" class="text-primary fw-semibold text-decoration-none ms-1">Sign in</a>
+            </div>
+          </div>
+
+          <!-- ── STEP 2: Shop details ── -->
+          <div id="step2" style="display:none">
+
+
+            <div class="mb-3">
+              <label class="form-label">Shop / Business Name *</label>
+              <input type="text" class="form-control" name="bizName" id="shopName" placeholder="e.g. Sharma Electronics"
+                required />
+              <div class="form-text small text-muted">This appears on all your invoices.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Business Type</label>
+              <select class="form-select" id="bizType" name="bizType">
+                <option>Retail Shop</option>
+                <option>Wholesale Distributor</option>
+                <option>Freelancer / Consultant</option>
+                <option>Restaurant / Food</option>
+                <option>Electronics</option>
+                <option>Clothing / Textile</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">GSTIN <span class="text-muted">(optional)</span></label>
+              <input type="text" class="form-control" id="gstin" name="Gstin" placeholder="e.g. 27AABCU9603R1ZM"
+                style="font-family:monospace;letter-spacing:.05em" />
+              <div class="form-text small text-muted">You can add this later in Settings.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">City</label>
+              <input type="text" name="City" class="form-control" placeholder="e.g. Ghandhinagar" />
+            </div>
+
+
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary flex-shrink-0" onclick="prevStep()">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+              <button type="submit" class="btn btn-primary flex-fill btn-signup" onclick="submitForm()">
+                <i class="bi bi-rocket-takeoff me-1"></i> Create My Account
+              </button>
+            </div>
+          </div>
+
+        </form>
+        <!-- ── SUCCESS SCREEN ── -->
+
+
+      </div><!-- /form-card -->
+    </div><!-- /right-panel -->
+
+  </div><!-- /page-body -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // ── Password show/hide ──
+    function togglePw(inputId, iconId) {
+      const inp = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      icon.className = inp.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+    }
+
+    // ── Password strength checker ──
+    function checkStrength() {
+      const pw = document.getElementById('password').value;
+      const fill = document.getElementById('strength-fill');
+      const text = document.getElementById('strength-text');
+
+      let score = 0;
+      if (pw.length >= 8) score++;
+      if (/[A-Z]/.test(pw)) score++;
+      if (/[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+      const levels = [
+        { label: 'Very weak', color: '#ef4444', w: '20%' },
+        { label: 'Weak', color: '#f97316', w: '40%' },
+        { label: 'Fair', color: '#eab308', w: '60%' },
+        { label: 'Strong', color: '#22c55e', w: '80%' },
+        { label: 'Very strong', color: '#16a34a', w: '100%' },
+      ];
+
+      if (pw.length === 0) {
+        fill.style.width = '0'; text.textContent = 'Enter a password'; text.style.color = '#94a3b8';
+        return;
+      }
+      const lvl = levels[score] || levels[0];
+      fill.style.width = lvl.w;
+      fill.style.background = lvl.color;
+      text.textContent = lvl.label;
+      text.style.color = lvl.color;
+    }
+
+    // ── Step navigation ──
+    function nextStep() {
+      // Validate step 1 fields
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      const em = document.getElementById('username').value.trim();
+      const ph = document.getElementById('phone').value.trim();
+      const pw = document.getElementById('password').value;
+      const cp = document.getElementById('confirmPw').value;
+
+      if (!fn || !ln) { alert('Please enter your full name.'); return; }
+      if (!em) { alert('Enter your username.'); return; }
+      if (!ph || ph.length < 10) { alert('Enter a valid 10-digit phone number.'); return; }
+      if (pw.length < 6) { alert('Password must be at least 6 characters.'); return; }
+      if (pw !== cp) { alert('Passwords do not match.'); return; }
+
+      // Move to step 2
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+
+      // Update step indicator
+      document.getElementById('s1').className = 'step-dot done';
+      document.getElementById('s1').querySelector('.step-num').innerHTML = '<i class="bi bi-check"></i>';
+      document.getElementById('s2').className = 'step-dot active';
+      document.getElementById('s2').querySelector('.step-num').textContent = '2';
+    }
+
+    function prevStep() {
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step1').style.display = 'block';
+      document.getElementById('s1').className = 'step-dot active';
+      document.getElementById('s1').querySelector('.step-num').innerHTML = '<i class="bi bi-person"></i>';
+      document.getElementById('s2').className = 'step-dot';
+    }
+
+    function submitForm() {
+      const shop = document.getElementById('shopName').value.trim();
+      if (!shop) { alert('Please enter your shop name.'); return; }
+
+      // Mark step 2 done
+      document.getElementById('s2').className = 'step-dot done';
+      document.getElementById('s2').querySelector('.step-num').innerHTML = '<i class="bi bi-check"></i>';
+      document.getElementById('s3').className = 'step-dot active';
+      document.getElementById('s3').querySelector('.step-num').innerHTML = '<i class="bi bi-check"></i>';
+
+      // Hide form, show success
+
+    }
+
+
+  </script>
+</body>
+
+</html>

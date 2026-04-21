@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – SmartBill</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'signin.css' %}">
+</head>
+
+<body>
+
+  <!-- Left panel -->
+  <div class="login-left">
+    <div class="brand-icon"><i class="bi bi-receipt-cutoff"></i></div>
+    <h2>SmartBill</h2>
+    <p>Smart billing &amp; invoice management for your business</p>
+    <ul class="feature-list">
+      <li><i class="bi bi-check-circle-fill"></i> Generate invoices in seconds</li>
+      <li><i class="bi bi-check-circle-fill"></i> Auto GST calculation</li>
+      <li><i class="bi bi-check-circle-fill"></i> Customer &amp; product management</li>
+      <li><i class="bi bi-check-circle-fill"></i> Sales reports &amp; analytics</li>
+      <li><i class="bi bi-check-circle-fill"></i> PDF invoice download</li>
+    </ul>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="login-right">
+    <div class="login-card">
+      <h3>Welcome back 👋</h3>
+      <p class="subtitle">Sign in to your SmartBill account</p>
+
+      <!-- Error alert — shown by JS on validation failure -->
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-danger" role="alert">
+
+        {{ message }}
+      </div>
+
+      {% endfor %}
+      {% endif %}
+
+      <!--
+      action="{% url 'dashboard' %}" redirects to dashboard after submit.
+      In production: action="{% url 'signin' %}" and method="post".
+    -->
+      <form id="login-form" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="username">Username</label>
+          <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username"
+            autocomplete="username" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="password">Password</label>
+          <div class="pw-wrap">
+            <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password"
+              autocomplete="current-password" />
+            <!-- Show / hide password button -->
+            <button type="button" class="pw-toggle" onclick="togglePw()">
+              <i class="bi bi-eye" id="eye-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe" />
+            <label class="form-check-label small" for="rememberMe">Remember me</label>
+          </div>
+          <a href="{% url 'signup' %}" class="small text-primary text-decoration-none">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-login">
+          <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+        </button>
+      </form>
+
+      <div class="divider">or</div>
+
+      <div class="text-center">
+        <span class="small text-muted">Don't have an account? </span>
+        <a href="{% url 'signup' %}" class="small text-primary fw-semibold text-decoration-none">Create account</a>
+      </div>
+
+      <!-- Demo hint badge -->
+      <div class="alert alert-light border mt-3 py-2 small text-muted text-center mb-0">
+        <i class="bi bi-info-circle me-1"></i>
+        Demo: any username &amp; password works
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle password visibility
+    function togglePw() {
+      const inp = document.getElementById('password');
+      const icon = document.getElementById('eye-icon');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      icon.className = inp.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+    }
+  </script>
+</body>
+
+</html>

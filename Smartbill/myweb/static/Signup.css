@@ -1,0 +1,441 @@
+:root {
+    --brand: #2563eb;
+    --brand-dark: #1d4ed8;
+    --navy: #0f172a;
+    --border: #e2e8f0;
+    --muted: #64748b;
+    --font: 'Plus Jakarta Sans', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font);
+    background: #f1f5f9;
+    color: #1e293b;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Navbar ── */
+.top-nav {
+    background: var(--navy);
+    padding: .9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.brand-dot {
+    width: 28px;
+    height: 28px;
+    background: var(--brand);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+}
+
+.top-nav a.login-link {
+    color: rgba(255, 255, 255, .6);
+    font-size: .875rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.top-nav a.login-link:hover {
+    color: #fff;
+}
+
+/* ── Two-column layout ── */
+.page-body {
+    flex: 1;
+    display: flex;
+}
+
+/* Left decorative panel */
+.left-panel {
+    width: 420px;
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle dot-grid background */
+.left-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(37, 99, 235, .2) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.left-panel-content {
+    position: relative;
+    z-index: 1;
+}
+
+.left-panel h2 {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: .6rem;
+}
+
+.left-panel p {
+    color: rgba(255, 255, 255, .5);
+    font-size: .9rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+/* Benefit bullets on left panel */
+.benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefit-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .65rem;
+    padding: .65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    font-size: .85rem;
+}
+
+.benefit-list li:last-child {
+    border-bottom: none;
+}
+
+.benefit-list li .bi {
+    color: #4ade80;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.benefit-list li .title {
+    color: rgba(255, 255, 255, .85);
+    font-weight: 600;
+    display: block;
+}
+
+.benefit-list li .sub {
+    color: rgba(255, 255, 255, .4);
+    font-size: .78rem;
+}
+
+/* Testimonial card at bottom of left panel */
+.left-testi {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+}
+
+.left-testi .stars {
+    color: #f59e0b;
+    font-size: .8rem;
+    margin-bottom: .4rem;
+}
+
+.left-testi .quote {
+    color: rgba(255, 255, 255, .65);
+    font-size: .82rem;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.left-testi .author {
+    color: rgba(255, 255, 255, .4);
+    font-size: .75rem;
+    margin-top: .5rem;
+}
+
+/* ── Right: form panel ── */
+.right-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.25rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .07);
+}
+
+.form-card h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: .2rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: .875rem;
+    margin-bottom: 2rem;
+}
+
+/* Step indicator */
+.steps-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 2rem;
+}
+
+.step-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+    flex: 1;
+    position: relative;
+}
+
+.step-dot::after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+}
+
+.step-dot:last-child::after {
+    display: none;
+}
+
+.step-dot.done::after {
+    background: var(--brand);
+}
+
+.step-dot.active::after {
+    background: var(--border);
+}
+
+.step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+    transition: all .2s;
+}
+
+.step-dot.active .step-num {
+    border-color: var(--brand);
+    color: var(--brand);
+    background: #eff6ff;
+}
+
+.step-dot.done .step-num {
+    border-color: var(--brand);
+    background: var(--brand);
+    color: #fff;
+}
+
+.step-label {
+    font-size: .65rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-align: center;
+}
+
+.step-dot.active .step-label {
+    color: var(--brand);
+    font-weight: 700;
+}
+
+/* Form inputs */
+.form-label {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: .3rem;
+}
+
+.form-control,
+.form-select {
+    font-size: .875rem;
+    border-color: var(--border);
+    border-radius: 8px;
+    padding: .6rem .9rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+}
+
+.form-control.is-invalid {
+    border-color: #ef4444;
+}
+
+.invalid-feedback {
+    font-size: .75rem;
+}
+
+/* Password strength meter */
+.strength-bar {
+    height: 4px;
+    border-radius: 99px;
+    background: var(--border);
+    margin-top: .4rem;
+    overflow: hidden;
+}
+
+.strength-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width .3s, background .3s;
+    width: 0%;
+}
+
+.strength-text {
+    font-size: .72rem;
+    margin-top: .25rem;
+}
+
+/* Password toggle */
+.pw-wrap {
+    position: relative;
+}
+
+.pw-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+}
+
+/* Section divider in form */
+.form-divider {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 1.25rem 0 1rem;
+}
+
+.form-divider::before,
+.form-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* Submit button */
+.btn-signup {
+    width: 100%;
+    padding: .7rem;
+    font-weight: 700;
+    border-radius: 9px;
+    font-size: .95rem;
+}
+
+/* Terms text */
+.terms-text {
+    font-size: .75rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: .75rem;
+}
+
+.terms-text a {
+    color: var(--brand);
+    text-decoration: none;
+}
+
+/* Success screen (hidden until form submitted) */
+#success-screen {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+#success-screen .success-icon {
+    width: 72px;
+    height: 72px;
+    background: #f0fdf4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #16a34a;
+    margin: 0 auto 1.25rem;
+}
+
+#success-screen h4 {
+    font-weight: 800;
+    margin-bottom: .5rem;
+}
+
+#success-screen p {
+    color: var(--muted);
+    font-size: .9rem;
+    max-width: 300px;
+    margin: 0 auto 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .left-panel {
+        display: none;
+    }
+
+    body {
+        display: block;
+    }
+}

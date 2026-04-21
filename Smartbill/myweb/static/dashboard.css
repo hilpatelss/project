@@ -1,0 +1,303 @@
+ /* ───────────────────────────────────────────────
+       DESIGN TOKENS  – change these to retheme the
+       whole app in one place.
+    ─────────────────────────────────────────────── */
+    :root {
+      --brand:      #2563eb;   /* primary blue        */
+      --brand-dark: #1d4ed8;   /* hover / active      */
+      --sidebar-bg: #0f172a;   /* dark navy sidebar   */
+      --sidebar-w:  240px;     /* sidebar width       */
+      --body-bg:    #f1f5f9;   /* page background     */
+      --card-bg:    #ffffff;
+      --text-main:  #1e293b;
+      --text-muted: #64748b;
+      --border:     #e2e8f0;
+      --success:    #16a34a;
+      --warning:    #d97706;
+      --danger:     #dc2626;
+      --font:       'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ── Base reset ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: var(--font);
+      background: var(--body-bg);
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    /* ────────────────────────────────────────────
+       SIDEBAR
+    ──────────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      position: fixed;         /* stays on left while page scrolls */
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 200;
+    }
+
+    /* Logo / brand area at the top of sidebar */
+    .sidebar-brand {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .sidebar-brand .icon-wrap {
+      width: 34px; height: 34px;
+      background: var(--brand);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* Navigation links */
+    .sidebar-nav { padding: 1rem 0; flex: 1; }
+    .nav-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      padding: .6rem 1.5rem .25rem;
+    }
+    .nav-link-item {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .55rem 1.5rem;
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: color .15s, background .15s, border-color .15s;
+    }
+    .nav-link-item:hover {
+      color: #fff;
+      background: rgba(255,255,255,.06);
+    }
+    /* Active page highlight */
+    .nav-link-item.active {
+      color: #fff;
+      background: rgba(37,99,235,.25);
+      border-left-color: var(--brand);
+    }
+    .nav-link-item i { font-size: 1rem; width: 18px; text-align: center; }
+
+    /* Logout at bottom of sidebar */
+    .sidebar-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-footer a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      font-size: .85rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .sidebar-footer a:hover { color: #fff; }
+
+    /* ────────────────────────────────────────────
+       MAIN CONTENT AREA
+       margin-left = sidebar width so content
+       doesn't hide behind the sidebar.
+    ──────────────────────────────────────────── */
+    .main-content {
+      margin-left: var(--sidebar-w);
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .topbar h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .topbar-right { display: flex; align-items: center; gap: .75rem; }
+    .avatar {
+      width: 36px; height: 36px;
+      background: var(--brand);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .85rem;
+    }
+
+    /* ────────────────────────────────────────────
+       STAT CARDS  (the four numbers at the top)
+    ──────────────────────────────────────────── */
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    /* Coloured circle icon on each card */
+    .stat-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .stat-label {
+      font-size: .78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: .15rem;
+    }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: .75rem;
+      color: var(--text-muted);
+      margin-top: .2rem;
+    }
+    .stat-sub .up   { color: var(--success); }
+    .stat-sub .down { color: var(--danger);  }
+
+    /* ────────────────────────────────────────────
+       SECTION CARDS  (white panels)
+    ──────────────────────────────────────────── */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .section-card-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    /* ────────────────────────────────────────────
+       TRANSACTIONS TABLE
+    ──────────────────────────────────────────── */
+    .tx-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .tx-table th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: .65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .tx-table td {
+      padding: .75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .tx-table tr:last-child td { border-bottom: none; }
+    .tx-table tr:hover td { background: #f8fafc; }
+
+    /* Status badges inside the table */
+    .badge-paid    { background: #dcfce7; color: #15803d; }
+    .badge-pending { background: #fef9c3; color: #a16207; }
+    .badge-draft   { background: #f1f5f9; color: #64748b; }
+    .status-badge {
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 99px;
+      display: inline-block;
+    }
+
+    /* ────────────────────────────────────────────
+       QUICK ACTION BUTTONS
+    ──────────────────────────────────────────── */
+    .quick-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 1.25rem .75rem;
+      border-radius: 12px;
+      border: 1.5px dashed var(--border);
+      background: var(--card-bg);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 600;
+      transition: border-color .15s, background .15s, color .15s;
+      text-align: center;
+    }
+    .quick-action-btn:hover {
+      border-color: var(--brand);
+      background: #eff6ff;
+      color: var(--brand);
+    }
+    .quick-action-btn .action-icon {
+      width: 42px; height: 42px;
+      background: #eff6ff;
+      color: var(--brand);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* ────────────────────────────────────────────
+       SIMPLE BAR CHART  (CSS-only, no library!)
+       Each bar is a coloured div whose height is
+       set inline via a CSS custom property.
+    ──────────────────────────────────────────── */
+    .chart-wrap {
+      padding: 1.25rem;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 160px;
+    }
+    .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .bar {
+      width: 100%;
+      background: var(--brand);
+      border-radius: 5px 5px 0 0;
+      /* height is set inline as style="height:XX%" */
+      min-height: 4px;
+      transition: opacity .15s;
+    }
+    .bar:hover { opacity: .75; cursor: pointer; }
+    .bar-label { font-size: .68rem; color: var(--text-muted); }
+
+    /* ────────────────────────────────────────────
+       RESPONSIVE: collapse sidebar on small screens
+    ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); transition: transform .25s; }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; padding: 1rem; }
+    }

@@ -1,0 +1,529 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartBill – Smart Billing & Invoice Management</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span class="brand-icon-sm"><i class="bi bi-receipt-cutoff"></i></span>
+        SmartBill
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#how-it-works">How it Works</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+        </ul>
+        <div class="d-flex gap-2 mt-2 mt-lg-0">
+          <a href="{% url 'signin' %}" class="btn btn-sm btn-outline-light" style="border-radius:8px;font-weight:600">Login</a>
+          <a href="{% url 'signup' %}" class="btn btn-sm btn-primary" style="border-radius:8px;font-weight:700">Get Started
+            Free</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- Left: headline + CTA -->
+        <div class="col-lg-6 hero-content">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            Now with auto GST calculation
+          </div>
+          <h1>
+            Billing that works<br />
+            as fast as <span class="accent">you do</span>
+          </h1>
+          <p>
+            Create professional invoices, manage customers and products,
+            track payments, and get business insights — all in one place.
+            No accounting degree needed.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="{% url 'signup' %}" class="btn-hero-primary">
+              <i class="bi bi-rocket-takeoff"></i> Start for Free
+            </a>
+            <a href="#how-it-works" class="btn-hero-ghost">
+              <i class="bi bi-play-circle"></i> See how it works
+            </a>
+          </div>
+
+          <!-- Social proof -->
+          <div class="social-proof">
+            <div class="proof-avatars">
+              <div class="proof-avatar" style="background:#2563eb">RS</div>
+              <div class="proof-avatar" style="background:#d97706">PM</div>
+              <div class="proof-avatar" style="background:#16a34a">AK</div>
+              <div class="proof-avatar" style="background:#9333ea">SJ</div>
+            </div>
+            <div class="proof-text">
+              Trusted by <strong>2,400+</strong> small businesses across India
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: mock dashboard card -->
+        <div class="col-lg-6 hero-content">
+          <div class="hero-card">
+            <!-- Fake window chrome -->
+            <div class="hero-card-bar">
+              <div class="dot-btn" style="background:#ef4444"></div>
+              <div class="dot-btn" style="background:#f59e0b"></div>
+              <div class="dot-btn" style="background:#22c55e"></div>
+              <div class="ms-2" style="font-size:.7rem;color:rgba(255,255,255,.3)">SmartBill Dashboard</div>
+            </div>
+            <div class="hero-card-body">
+              <!-- 2 stat boxes -->
+              <div class="mock-stat-row">
+                <div class="mock-stat">
+                  <div class="lbl">Today's Sales</div>
+                  <div class="val">₹ 4,850</div>
+                  <div class="chg">↑ 12% vs yesterday</div>
+                </div>
+                <div class="mock-stat">
+                  <div class="lbl">Monthly</div>
+                  <div class="val">₹ 1.24L</div>
+                  <div class="chg">↑ 8% this month</div>
+                </div>
+              </div>
+              <!-- Mini bar chart -->
+              <div class="mini-chart mb-3">
+                <div class="mini-bar" style="height:45%"></div>
+                <div class="mini-bar" style="height:70%"></div>
+                <div class="mini-bar" style="height:55%"></div>
+                <div class="mini-bar" style="height:90%"></div>
+                <div class="mini-bar" style="height:65%"></div>
+                <div class="mini-bar active" style="height:100%"></div>
+                <div class="mini-bar" style="height:40%"></div>
+              </div>
+              <!-- Recent invoices -->
+              <div
+                style="font-size:.68rem;color:rgba(255,255,255,.3);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em">
+                Recent Invoices</div>
+              <div class="mock-row">
+                <span class="name">Rahul Sharma</span>
+                <span class="amt">₹ 1,240</span>
+                <span class="badge">Paid</span>
+              </div>
+              <div class="mock-row">
+                <span class="name">Priya Mehta</span>
+                <span class="amt">₹ 580</span>
+                <span class="badge">Paid</span>
+              </div>
+              <div class="mock-row">
+                <span class="name">Amit Patel</span>
+                <span class="amt">₹ 3,050</span>
+                <span class="badge" style="background:rgba(251,191,36,.15);color:#fbbf24">Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     STATS STRIP
+══════════════════════════════════════════ -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+          <div class="stat-num">2,400+</div>
+          <div class="stat-desc">Businesses using SmartBill</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">₹ 50Cr+</div>
+          <div class="stat-desc">Invoices processed</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">4.9 ★</div>
+          <div class="stat-desc">Average user rating</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-num">99.9%</div>
+          <div class="stat-desc">Uptime guaranteed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════
+     FEATURES SECTION
+══════════════════════════════════════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-tag">Features</div>
+        <h2 class="section-title">Everything your business needs</h2>
+        <p class="section-sub mx-auto">
+          From generating your first invoice to tracking monthly revenue —
+          SmartBill handles it all without the complexity.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#eff6ff;color:#2563eb">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+            <h5>Instant Invoice Generation</h5>
+            <p>Create professional GST-compliant invoices in seconds. Auto-fill prices, calculate taxes, and send with
+              one click.</p>
+          </div>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#f0fdf4;color:#16a34a">
+              <i class="bi bi-calculator"></i>
+            </div>
+            <h5>Auto GST Calculation</h5>
+            <p>Set GST rates per product category. SmartBill automatically adds the correct tax and breaks it down on
+              every invoice.</p>
+          </div>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#fff7ed;color:#d97706">
+              <i class="bi bi-people"></i>
+            </div>
+            <h5>Customer Management</h5>
+            <p>Keep a full customer database with purchase history, contact details, and outstanding balance tracking.
+            </p>
+          </div>
+        </div>
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#fdf4ff;color:#9333ea">
+              <i class="bi bi-box-seam"></i>
+            </div>
+            <h5>Product Catalogue</h5>
+            <p>Manage your entire product inventory. Track stock levels, set prices, and get low-stock alerts
+              automatically.</p>
+          </div>
+        </div>
+        <!-- Feature 5 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#fff1f2;color:#e11d48">
+              <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <h5>Sales Analytics</h5>
+            <p>Visual reports of daily, weekly, and monthly revenue. See your top products and busiest customers at a
+              glance.</p>
+          </div>
+        </div>
+        <!-- Feature 6 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="feature-card">
+            <div class="feature-icon" style="background:#ecfdf5;color:#059669">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </div>
+            <h5>PDF & Print</h5>
+            <p>Download any invoice as a PDF or print directly from the browser. Share via WhatsApp or email in one tap.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════ -->
+  <section class="steps-section" id="how-it-works">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-tag" style="color:#60a5fa">How it works</div>
+        <h2 class="section-title" style="color:#fff">Up and running in 3 steps</h2>
+        <p class="section-sub mx-auto" style="color:rgba(255,255,255,.5)">
+          No training required. No complicated setup. Just start billing.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h5>Create Your Account</h5>
+            <p>Sign up in 30 seconds. Enter your shop name, GSTIN, and logo. Your account is ready to bill.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h5>Add Products & Customers</h5>
+            <p>Import your product catalogue and customer list. Or add them one-by-one as you go — it's flexible.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h5>Generate & Share Bills</h5>
+            <p>Select customer, add items, hit Generate. Download PDF or print instantly. It really is that simple.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="{% url 'signup' %}" class="btn-hero-primary">
+          <i class="bi bi-arrow-right-circle"></i> Start Free Today
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     PRICING
+══════════════════════════════════════════ -->
+  <section class="section" id="pricing" style="background:#f8fafc">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-tag">Pricing</div>
+        <h2 class="section-title">Simple, honest pricing</h2>
+        <p class="section-sub mx-auto">No hidden fees. Upgrade or cancel anytime.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Free plan -->
+        <div class="col-md-4">
+          <div class="pricing-card">
+            <div class="plan-name">Starter</div>
+            <div class="price">0 ₹ <span class="period">/ month</span></div>
+            <div class="desc">Perfect for freelancers and very small shops.</div>
+            <ul class="price-features">
+              <li><i class="bi bi-check-circle-fill"></i> Up to 20 invoices/month</li>
+              <li><i class="bi bi-check-circle-fill"></i> 50 customers</li>
+              <li><i class="bi bi-check-circle-fill"></i> Basic GST invoices</li>
+              <li><i class="bi bi-check-circle-fill"></i> PDF download</li>
+              <li class="off"><i class="bi bi-x-circle-fill"></i> Sales analytics</li>
+              <li class="off"><i class="bi bi-x-circle-fill"></i> Priority support</li>
+            </ul>
+            <a href="{% url 'signup' %}" class="btn btn-outline-primary w-100" style="border-radius:9px;font-weight:700">Get
+              Started Free</a>
+          </div>
+        </div>
+        <!-- Pro plan (featured) -->
+        <div class="col-md-4">
+          <div class="pricing-card featured">
+            <div class="plan-name">Professional <span class="popular-badge">Most Popular</span></div>
+            <div class="price">499 ₹<span class="period">/ month</span></div>
+            <div class="desc">For growing shops that need full control.</div>
+            <ul class="price-features">
+              <li><i class="bi bi-check-circle-fill"></i> Unlimited invoices</li>
+              <li><i class="bi bi-check-circle-fill"></i> Unlimited customers</li>
+              <li><i class="bi bi-check-circle-fill"></i> Full product catalogue</li>
+              <li><i class="bi bi-check-circle-fill"></i> Sales analytics & reports</li>
+              <li><i class="bi bi-check-circle-fill"></i> Custom logo & branding</li>
+              <li><i class="bi bi-check-circle-fill"></i> Priority support</li>
+            </ul>
+            <a href="{% url 'signup' %}" class="btn btn-primary w-100" style="border-radius:9px;font-weight:700">Start 14-Day
+              Free Trial</a>
+          </div>
+        </div>
+        <!-- Business plan -->
+        <div class="col-md-4">
+          <div class="pricing-card">
+            <div class="plan-name">Business</div>
+            <div class="price">999 ₹ <span class="period">/ month</span></div>
+            <div class="desc">For multi-user teams and larger operations.</div>
+            <ul class="price-features">
+              <li><i class="bi bi-check-circle-fill"></i> Everything in Pro</li>
+              <li><i class="bi bi-check-circle-fill"></i> Up to 5 staff accounts</li>
+              <li><i class="bi bi-check-circle-fill"></i> Role-based access</li>
+              <li><i class="bi bi-check-circle-fill"></i> Advanced reports & export</li>
+              <li><i class="bi bi-check-circle-fill"></i> API access</li>
+              <li><i class="bi bi-check-circle-fill"></i> Dedicated support</li>
+            </ul>
+            <a href="{% url 'signup' %}" class="btn btn-outline-primary w-100" style="border-radius:9px;font-weight:700">Start
+              Free Trial</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════ -->
+  <section class="testimonial-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-tag">Testimonials</div>
+        <h2 class="section-title">What our users say</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"Switched from manual Excel billing to SmartBill. It saves me at least 2 hours every
+              day. The GST calculation is perfect."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#2563eb">RS</div>
+              <div>
+                <div class="testi-name">Ravi Shankar</div>
+                <div class="testi-role">Electronics shop owner, Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">"My accountant loves it. Clean invoices, correct GST, and I can export everything at
+              tax time. Best ₹499 I spend every month."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#16a34a">PD</div>
+              <div>
+                <div class="testi-name">Preethi Devi</div>
+                <div class="testi-role">Clothing boutique, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★☆</div>
+            <p class="testi-text">"Simple enough that even my staff figured it out without training. Reports help me
+              know which products to stock more of."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#d97706">AK</div>
+              <div>
+                <div class="testi-name">Arjun Kumar</div>
+                <div class="testi-role">Grocery distributor, Pune</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     CTA BANNER
+══════════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to simplify your billing?</h2>
+      <p>Join 2,400+ businesses. Free to start. No credit card required.</p>
+      <a href="{% url 'signup' %}" class="btn-cta-white">
+        <i class="bi bi-rocket-takeoff"></i> Create Free Account
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-brand">
+            <span class="brand-icon-sm"><i class="bi bi-receipt-cutoff"></i></span>
+            SmartBill
+          </div>
+          <div class="footer-tagline">Smart billing for growing businesses.</div>
+          <div class="mt-3 d-flex gap-3">
+            <a href="#" style="color:rgba(255,255,255,.4);font-size:1.1rem;transition:color .15s"
+              onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.4)'"><i
+                class="bi bi-twitter-x"></i></a>
+            <a href="#" style="color:rgba(255,255,255,.4);font-size:1.1rem;transition:color .15s"
+              onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.4)'"><i
+                class="bi bi-linkedin"></i></a>
+            <a href="#" style="color:rgba(255,255,255,.4);font-size:1.1rem;transition:color .15s"
+              onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.4)'"><i
+                class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">Product</div>
+          <ul class="footer-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'signin' %}">Login</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">App</div>
+          <ul class="footer-links">
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'billing' %}">New Bill</a></li>
+            <li><a href="{% url 'products' %}">Products</a></li>
+            <li><a href="{% url 'reports' %}">Reports</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">Legal</div>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="footer-heading">Support</div>
+          <ul class="footer-links">
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 SmartBill. All rights reserved.</span>
+        <span>Made with ❤️ for Indian businesses</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

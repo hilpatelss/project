@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales History – SmartBill</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'sales_history.css' %}">
+</head>
+
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <a href="{% url 'dashboard' %}" class="sidebar-brand">
+      <span class="icon-wrap"><i class="bi bi-receipt-cutoff"></i></span>SmartBill
+    </a>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Main</div>
+      <a href="{% url 'dashboard' %}" class="nav-link-item"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+      <a href="{% url 'billing' %}" class="nav-link-item"><i class="bi bi-file-earmark-text"></i> New Bill</a>
+      <a href="{% url 'sales_history' %}" class="nav-link-item active"><i class="bi bi-clock-history"></i> Sales
+        History</a>
+      <div class="nav-label mt-2">Manage</div>
+      <a href="{% url 'products' %}" class="nav-link-item"><i class="bi bi-box-seam"></i> Products</a>
+      <a href="{% url 'customers' %}" class="nav-link-item"><i class="bi bi-people"></i> Customers</a>
+      <div class="nav-label mt-2">Business</div>
+      <!-- <a href="{% url 'reports' %}"   class="nav-link-item"><i class="bi bi-bar-chart-line"></i> Reports</a> -->
+      <a href="{% url 'reports' %}" class="nav-link-item"><i class="bi bi-bar-chart-line"></i> Reports</a>
+      <a href="{% url 'settings' %}" class="nav-link-item"><i class="bi bi-gear"></i> Settings</a>
+    </nav>
+    <div class="sidebar-footer"><a href="{% url 'signin' %}"><i class="bi bi-box-arrow-left"></i> Logout</a></div>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="topbar">
+      <div>
+        <button class="btn btn-sm btn-outline-secondary me-2 d-md-none"
+          onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <i class="bi bi-list"></i>
+        </button>
+        <h1 class="d-inline">Sales History</h1>
+        <p class="text-muted small mb-0">All invoices and transactions</p>
+      </div>
+      <a href="{% url 'billing' %}" class="btn btn-primary btn-sm">
+        <i class="bi bi-plus-lg me-1"></i> New Bill
+      </a>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="panel mb-0 p-3 text-center">
+          <div class="fs-4 fw-bold">{{ data.total_inv }}</div>
+          <div class="small text-muted">Total Invoices</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel mb-0 p-3 text-center">
+          <div class="fs-4 fw-bold text-success">₹ {{ data.total_coll }}</div>
+          <div class="small text-muted">Total Collected</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel mb-0 p-3 text-center">
+          <div class="fs-4 fw-bold text-warning">₹ {{ data.total_pen }}</div>
+          <div class="small text-muted">Pending Payments</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel mb-0 p-3 text-center">
+          <div class="fs-4 fw-bold text-primary">₹ {{ data.total_T_rev }}</div>
+          <div class="small text-muted">Today's Revenue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <i class="bi bi-funnel text-primary"></i> Filter &amp; Search
+      </div>
+      <div class="p-3">
+        <div class="row g-2 align-items-end">
+          <!-- Search by customer name / invoice number -->
+          <div class="col-12 col-md-4">
+            <label class="form-label">Search</label>
+            <div class="search-wrap">
+              <i class="bi bi-search"></i>
+              <input type="text" class="form-control" id="histSearch" placeholder="Customer name or invoice #…"
+                oninput="filterHistory()" />
+            </div>
+          </div>
+          <!-- Date from -->
+          <div class="col-6 col-md-2">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control" id="dateFrom" onchange="filterHistory()" />
+          </div>
+          <!-- Date to -->
+          <div class="col-6 col-md-2">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control" id="dateTo" onchange="filterHistory()" />
+          </div>
+          <!-- Status filter -->
+          <div class="col-6 col-md-2">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="statusFilter" onchange="filterHistory()">
+              <option value="">All Status</option>
+              <option value="Paid">Paid</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+          <!-- Reset button -->
+          <div class="col-6 col-md-2">
+            <label class="form-label">&nbsp;</label>
+            <button class="btn btn-outline-secondary w-100" onclick="resetFilters()">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoices table -->
+    <div class="panel">
+      <div class="panel-header justify-content-between">
+        <span><i class="bi bi-receipt text-primary"></i> Invoices</span>
+        <!-- Shows count of visible rows -->
+        <span class="text-muted small" id="rowCount"></span>
+      </div>
+      <div class="table-responsive">
+        <table class="sales-table" id="histTable">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Subtotal</th>
+              <th>GST</th>
+              <th>Total</th>
+              <th>Date</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="histTableBody">
+            <!--
+            data-status & data-date are used by the JS filter below.
+            In production, Django renders these rows with template tags.
+          -->
+
+            {% for i in data.inv %}
+            <tr data-status="{{ i.Inv_status }}" data-date="{{ i.Inv_bill_date|date:'Y-m-d' }}"
+              data-customer="{{ i.Customer_name }}">
+              <td><strong>{{ data.Formet.Inv_prefix }}{{ i.Inv_number|stringformat:"03d"}}</strong></td>
+              <td>{{ i.Customer_name }}</td>
+              <td>{{ i.Inv_items }}</td>
+              <td>₹ {{ i.Inv_subtotal|floatformat:2 }}</td>
+              <td>₹ {{ i.Inv_gst|floatformat:2 }}</td>
+              <td><strong>₹ {{ i.Inv_Total|floatformat:2 }}</strong></td>
+              <td>{{ i.Inv_bill_date|date:'d M Y' }}</td>
+              <td>{{ i.Inv_payment_mode }}</td>
+              <td><span class="badge-{{ i.Inv_status|lower }}">{{ i.Inv_status }}</span></td>
+              <form action="{% url 'invoice_h' %}" method="post">
+                {% csrf_token %}
+                <td><button type="submit" value="{{ i.Inv_number }}" name="inv_number"
+                    class="btn btn-sm btn-outline-primary py-0">View</button> </td>
+              </form>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Update visible row count on load
+    updateCount();
+
+    // ── Combined filter function ──
+    // Reads search text, date range, and status filter,
+    // then shows/hides rows accordingly.
+    function filterHistory() {
+      const query = document.getElementById('histSearch').value.toLowerCase();
+      const from = document.getElementById('dateFrom').value;
+      const to = document.getElementById('dateTo').value;
+      const status = document.getElementById('statusFilter').value;
+
+      const rows = document.querySelectorAll('#histTableBody tr');
+      rows.forEach(row => {
+        const rowText = row.textContent.toLowerCase();
+        const rowDate = row.dataset.date;   // "2025-07-22"
+        const rowStatus = row.dataset.status; // "Paid" / "Pending" / "Draft"
+
+        // Check each filter condition
+        const matchText = !query || rowText.includes(query);
+        const matchStatus = !status || rowStatus === status;
+        const matchFrom = !from || rowDate >= from;
+        const matchTo = !to || rowDate <= to;
+
+        // Show row only if ALL conditions pass
+        row.style.display = (matchText && matchStatus && matchFrom && matchTo) ? '' : 'none';
+      });
+
+      updateCount();
+    }
+
+    // ── Reset all filters ──
+    function resetFilters() {
+      document.getElementById('histSearch').value = '';
+      document.getElementById('dateFrom').value = '';
+      document.getElementById('dateTo').value = '';
+      document.getElementById('statusFilter').value = '';
+      document.querySelectorAll('#histTableBody tr').forEach(r => r.style.display = '');
+      updateCount();
+    }
+
+    // ── Show how many rows are visible ──
+    function updateCount() {
+      const visible = document.querySelectorAll('#histTableBody tr:not([style*="none"])').length;
+      document.getElementById('rowCount').textContent = visible + ' invoice(s)';
+    }
+  </script>
+</body>
+
+</html>
