@@ -160,7 +160,7 @@
             <span>GST Amount</span><span>₹ {{ data.Inv_gst|floatformat:2 }}</span>
           </div>
           <div class="total-line">
-            <span>Discount (0%)</span><span>₹ {{ data.Inv_discount|floatformat:2 }}</span>
+            <span>Discount</span><span>₹ {{ data.Inv_discount|floatformat:2 }}</span>
           </div>
           <div class="total-line grand">
             <span>Total Amount</span><span>₹ {{ data.Inv_total|floatformat:2 }}</span>
@@ -186,104 +186,7 @@
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // // Set invoice date to today
-    // document.getElementById('invDate').textContent =
-    //   new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-
-    // // Download PDF: opens print dialog with PDF option in modern browsers
-    // function downloadPDF() {
-    //   window.print();
-    //   // To use a library like jsPDF, add it as a CDN script and call it here.
-    //   // For most use cases, browser print-to-PDF is sufficient.
-    // }
-    // ─── Invoice Data ────────────────────────────────────────────────────────────
-    const invoiceData = {
-      // Shop / Business
-      shop_name: "SmartBill Store",
-      shop_tagline: "Your trusted local shop",
-      shop_address: "N-156, New Green City",
-      shop_phone: "9265186613",
-      shop_gstin: "27AABCU9603R1ZM",
-
-      // Invoice meta
-      inv_format: "INV",
-      inv_number: "1",
-      inv_date: "Feb. 10, 2026",
-      inv_due_date: "April 11, 2026",
-      inv_payment_method: "Cash",
-      inv_payment_status: "Paid",   // "Paid" | "Unpaid" | "Pending"
-
-      // Customer
-      customer_name: "Hil Patel",
-      customer_mobile: "9265186613",
-      customer_email: "hilpatelss@gmail.com",
-
-      // Line items
-      items: [
-        { name: "Hjjj", unit_price: 2.00, gst_pct: 12, qty: 1 }
-        // Add more rows here – they are rendered automatically
-        // { name: "Widget B", unit_price: 150.00, gst_pct: 18, qty: 3 },
-      ],
-
-      // Summary (computed below – or override manually)
-      discount_pct: 0,
-      notes: "Thank you for your purchase! For queries, contact us at shop@SmartBill.in"
-    };
-
-    // ─── Derived totals (auto-computed from items) ────────────────────────────────
-    invoiceData.subtotal = invoiceData.items.reduce((s, i) => s + i.unit_price * i.qty, 0);
-    invoiceData.gst_amount = invoiceData.items.reduce(
-      (s, i) => s + (i.unit_price * i.qty * i.gst_pct) / 100, 0
-    );
-    invoiceData.discount_amount =
-      (invoiceData.subtotal * invoiceData.discount_pct) / 100;
-    invoiceData.total =
-      invoiceData.subtotal + invoiceData.gst_amount - invoiceData.discount_amount;
-
-    // ─── Invoice Data ────────────────────────────────────────────────────────────
-const invoiceData = {
-  // Shop / Business
-  shop_name:    "SmartBill Store",
-  shop_tagline: "Your trusted local shop",
-  shop_address: "N-156, New Green City",
-  shop_phone:   "9265186613",
-  shop_gstin:   "27AABCU9603R1ZM",
-
-  // Invoice meta
-  inv_format:         "INV",
-  inv_number:         "1",
-  inv_date:           "Feb. 10, 2026",
-  inv_due_date:       "April 11, 2026",
-  inv_payment_method: "Cash",
-  inv_payment_status: "Paid",   // "Paid" | "Unpaid" | "Pending"
-
-  // Customer
-  customer_name:   "Hil Patel",
-  customer_mobile: "9265186613",
-  customer_email:  "hilpatelss@gmail.com",
-
-  // Line items
-  items: [
-    { name: "Hjjj", unit_price: 2.00, gst_pct: 12, qty: 1 }
-    // Add more rows here – they are rendered automatically
-    // { name: "Widget B", unit_price: 150.00, gst_pct: 18, qty: 3 },
-  ],
-
-  // Summary (computed below – or override manually)
-  discount_pct: 0,
-  notes: "Thank you for your purchase! For queries, contact us at shop@SmartBill.in"
-};
-
-// ─── Derived totals (auto-computed from items) ────────────────────────────────
-invoiceData.subtotal = invoiceData.items.reduce((s, i) => s + i.unit_price * i.qty, 0);
-invoiceData.gst_amount = invoiceData.items.reduce(
-  (s, i) => s + (i.unit_price * i.qty * i.gst_pct) / 100, 0
-);
-invoiceData.discount_amount =
-  (invoiceData.subtotal * invoiceData.discount_pct) / 100;
-invoiceData.total =
-  invoiceData.subtotal + invoiceData.gst_amount - invoiceData.discount_amount;
-
+    
   </script>
 </body>
 
